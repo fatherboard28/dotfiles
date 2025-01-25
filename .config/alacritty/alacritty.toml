@@ -10,7 +10,9 @@ window.opacity = 0.95
 window.decorations = "None"
 
 font.normal = { family = "Hack Nerd Font Mono"}
-font.size = 16
+font.size = 18
+font.offset.y = 18
+font.glyph_offset.y = 9
 
 
 mouse.hide_when_typing = false
