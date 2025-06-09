@@ -27,7 +27,7 @@ require("lazy").setup({
     config = function()
       local ts = require('telescope.builtin')
       vim.keymap.set('n', '<leader>]', ts.find_files, {})
-      vim.keymap.set('n', '<leader>[', ts.git_files, {})
+      vim.keymap.set('n', '<C-i>', ts.git_files, {})
       vim.keymap.set('n', '<leader>p', function()
         ts.grep_string({ search = vim.fn.input("Grep > ")})
       end)
@@ -73,7 +73,7 @@ require("lazy").setup({
   {"nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup{
-        ensure_installed = { "java", "lua", "markdown" },
+        ensure_installed = { "java", "lua", "markdown", "rust", "wgsl" },
         highlight = {
           enable = true,
         },
@@ -83,8 +83,29 @@ require("lazy").setup({
         additional_vim_regex_highlighting = false,
       }
       vim.cmd("TSUpdate")
+
+      --wgsl config stuff
+      vim.filetype.add({extension = {wgsl = "wgsl"}})
+      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+      parser_config.wgsl = {
+        install_info = {
+          url = "https://github.com/szebniok/tree-sitter-wgsl",
+          files = {"src/parser.c"}
+        },
+      }
     end,
   },
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  }, 
 
   --UndoTree
   {"mbbill/undotree", config = function()
@@ -97,6 +118,12 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
     end,
   },
+
+  {"lewis6991/gitsigns.nvim", config=function()
+        require('gitsigns').setup()
+    end,
+  },
+
 
   {"nvim-tree/nvim-web-devicons"},
 
@@ -148,6 +175,8 @@ require("lazy").setup({
             ensure_installed = {
                 "lua_ls",
                 "jdtls",
+                "rust_analyzer",
+                "wgsl_analyzer",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -170,6 +199,36 @@ require("lazy").setup({
                         }
                     }
                 end,
+
+                ["rust_analyzer"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.rust_analyzer.setup {
+                        capabilities = capabilities,
+                        settings = {
+                          imports = {
+                            granularity = {
+                              group = "module",
+                            },
+                            prefix = "self",
+                          },
+                          cargo = {
+                            buildScripts = {
+                              enable = true,
+                            },
+                          },
+                          procMacro = {
+                            enable = true
+                          },
+                        }
+                    }
+                end,
+
+                ["wgsl_analyzer"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.wgsl_analyzer.setup {
+                        capabilities = capabilities,
+                    }
+                end,
             }
         })
 
@@ -184,7 +243,7 @@ require("lazy").setup({
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                ['<tab>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
