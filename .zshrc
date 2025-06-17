@@ -78,7 +78,6 @@ zinit cdreplay -q
 alias la='ls --color -a'
 #-----------------------------------------------------------------------------------
 
-neofetch
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval "$(~/.local/bin/mise activate)"
 #To customize prompt, run `p10k configure` or edit ~/.p10k.zsh

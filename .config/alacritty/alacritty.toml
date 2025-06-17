@@ -10,41 +10,41 @@ window.opacity = 0.95
 window.decorations = "None"
 
 font.normal = { family = "Hack Nerd Font Mono"}
-font.size = 18
-font.offset.y = 18
-font.glyph_offset.y = 9
+font.size = 12
+font.offset.y = 4
+font.glyph_offset.y = 2
 
 
 mouse.hide_when_typing = false
 
 # Default colors
-colors.primary.background = "#222426"
-colors.primary.foreground= '0xf8f8f0'
+colors.primary.background = "#1c1c1c"
+colors.primary.foreground= '0xe0def4'
 
 # Colors the cursor will use if `custom_cursor_colors` is true
-colors.cursor.text= '0x477a62'
-colors.cursor.cursor= '0x0dcd0f'
+colors.cursor.text= '0xe0def4'
+colors.cursor.cursor= '0xe0def4'
 
 # Normal colors
 [colors.normal]
-black=   '0x11111b'
-red=     '0xf38ba8'
-green=   '0xa6e3a1'
-yellow=  '0xfab387'
-blue=    '0x89b4fa'
-magenta= '0xb4befe'
-cyan=    '0x74c7ec'
-white=   '0xcdd6f4'
+black=   '0x1f1d2e'
+red=     '0xeb6f92'
+green=   '0x9ccfd8'
+yellow=  '0xf6c177'
+blue=    '0x31748f'
+magenta= '0xc4a7e7'
+cyan=    '0x9ccfd8'
+white=   '0xe0def4'
 
 [colors.bright]
-black=   '0x232634'
-red=     '0xe78284'
-green=   '0xa6d189'
-yellow=  '0xef9f76'
-blue=    '0x8caaee'
-magenta= '0xbabbf1'
-cyan=    '0x85c1dc'
-white=   '0xc6d0f5'
+black=   '0x908caa'
+red=     '0xeb6f92'
+green=   '0x9ccfd8'
+yellow=  '0xf6c177'
+blue=    '0x31748f'
+magenta= '0xc4a7e7'
+cyan=    '0x9ccfd8'
+white=   '0xe0def4'
 
 
 

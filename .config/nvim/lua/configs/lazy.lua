@@ -200,6 +200,30 @@ require("lazy").setup({
                     }
                 end,
 
+                ["bashls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.bashls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                        }
+                    }
+                end,
+
+                ["omnisharp"] = function()
+                  local bin = vim.fn.expand("$HOME")
+                  local lspconfig = require("lspconfig")
+                  lspconfig.omnisharp.setup {
+                    cmd = {
+                      'mono',
+                      '--assembly-loader=strict',
+                      bin .. '/omnisharp/OmniSharp.dll',
+                    },
+                    -- Assuming you have an on_attach function. Delete this line if you don't.
+                    -- on_attach = on_attach,
+                    use_mono = true,
+                  }
+                end,
+
                 ["rust_analyzer"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.rust_analyzer.setup {
