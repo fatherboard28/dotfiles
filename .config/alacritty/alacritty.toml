@@ -9,7 +9,9 @@ window.opacity = 0.95
 
 window.decorations = "None"
 
-font.normal = { family = "Hack Nerd Font Mono"}
+#font.normal = { family = "Hack Nerd Font Mono"}
+font.normal = { family = "JetBrainsMono Nerd Font"}
+#font.normal = { family = "Mononoki Nerd Font"}
 font.size = 12
 font.offset.y = 4
 font.glyph_offset.y = 2
