@@ -1,0 +1,25 @@
+colors_primary_background = "#1c1c1c"
+colors_primary_foreground = '0xe0def4'
+
+colors_cursor_text= '0xe0def4'
+colors_cursor_cursor= '0xe0def4'
+
+# Normal colors
+colors_black=   '0x1f1d2e'
+colors_red=     '0xeb6f92'
+colors_green=   '0x9ccfd8'
+colors_yellow=  '0xf6c177'
+colors_blue=    '0x31748f'
+colors_magenta= '0xc4a7e7'
+colors_cyan=    '0x9ccfd8'
+colors_white=   '0xe0def4'
+
+# Bright colors
+colors_black_bright=   '0x908caa'
+colors_red_bright=     '0xeb6f92'
+colors_green_bright=   '0x9ccfd8'
+colors_yellow_bright=  '0xf6c177'
+colors_blue_bright=    '0x31748f'
+colors_magenta_bright= '0xc4a7e7'
+colors_cyan_bright=    '0x9ccfd8'
+colors_white_bright=   '0xe0def4'

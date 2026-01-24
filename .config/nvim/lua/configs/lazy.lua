@@ -61,19 +61,27 @@ require("lazy").setup({
   {"folke/tokyonight.nvim",
     priority = 1000,
     config = function()
-      --vim.cmd([[colorscheme tokyonight]])
+      require("tokyonight").setup({
+        style = "night",
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
+      })
+      vim.cmd([[colorscheme tokyonight]])
     end,
   },
   {"rose-pine/neovim",
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme rose-pine-main]])
+      --vim.cmd([[colorscheme rose-pine-main]])
     end,
   },
   {"nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup{
-        ensure_installed = { "java", "lua", "markdown", "rust", "wgsl" },
+        ensure_installed = { "java", "lua", "markdown", "rust", "wgsl", "go" },
         highlight = {
           enable = true,
         },
@@ -176,7 +184,9 @@ require("lazy").setup({
                 "lua_ls",
                 "jdtls",
                 "rust_analyzer",
-                "wgsl_analyzer",
+                --"wgsl_analyzer",
+                "omnisharp_mono",
+                "gopls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -200,6 +210,15 @@ require("lazy").setup({
                     }
                 end,
 
+                ["gopls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.gopls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                        }
+                    }
+                end,
+
                 ["bashls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.bashls.setup {
@@ -209,18 +228,19 @@ require("lazy").setup({
                     }
                 end,
 
-                ["omnisharp"] = function()
-                  local bin = vim.fn.expand("$HOME")
+                ["omnisharp_mono"] = function()
+                  local bin = '/home/jonathan/omnisharp-roslyn/OmniSharp'
+                  local pid = vim.fn.getpid()
                   local lspconfig = require("lspconfig")
-                  lspconfig.omnisharp.setup {
-                    cmd = {
-                      'mono',
-                      '--assembly-loader=strict',
-                      bin .. '/omnisharp/OmniSharp.dll',
+                  vim.g.OmniSharp_server_use_mono = 1
+                  lspconfig.omnisharp_mono.setup {
+                    capabilities = capabilities,
+                    flags = {
+                      debounce_text_changes = 150,
                     },
-                    -- Assuming you have an on_attach function. Delete this line if you don't.
-                    -- on_attach = on_attach,
-                    use_mono = true,
+                    cmd = {
+                      bin, "--languageserver", "--hostPID", tostring(pid)
+                    };
                   }
                 end,
 
@@ -247,12 +267,14 @@ require("lazy").setup({
                     }
                 end,
 
+                --[=====[
                 ["wgsl_analyzer"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.wgsl_analyzer.setup {
                         capabilities = capabilities,
                     }
                 end,
+                --]=====]
             }
         })
 
